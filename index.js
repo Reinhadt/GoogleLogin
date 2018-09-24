@@ -16,9 +16,19 @@ app.use(session({secret: 'cats'}));
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 app.use(require('./routes/index'))
 
 app.use(express.static(path.resolve(__dirname, './public')))
+
+// set the view engine to ejs
+app.set('views', path.join(__dirname, './public/views'));
+app.set('view engine', 'ejs');
+
+
+passport.deserializeUser(function(user, done) {
+    done(null, user);
+});
 
 app.get('/login', (req,res)=>{
     res.sendFile(path.join(__dirname, './public', 'login.html'));

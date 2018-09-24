@@ -39,11 +39,11 @@ passport.use(new GoogleStrategy({
 ));
 passport.serializeUser(function(user, done) {
     done(null, user);
-  });
+});
 
 passport.deserializeUser(function(user, done) {
     done(null, user);
-  });
+});
 
 app.get('/auth/google',
   passport.authenticate('google', { scope: ['https://www.googleapis.com/auth/userinfo.profile', 'https://www.googleapis.com/auth/userinfo.email'] }));
@@ -52,7 +52,7 @@ app.get('/auth/google',
 app.get('/auth/google/callback',
   passport.authenticate('google', { failureRedirect: '/login' }),
   function(req, res) {
-    res.redirect('/');
+    res.redirect('/me');
   });
 
 module.exports = app
